@@ -591,44 +591,21 @@ trait TxRxStateMachineTop extends HasRegMap {
   machine.io.tx_symb_vector.ready <> true.B
 
    regmap(
-    0x00 -> Seq(RegField.w(1, reg_pcsReset)),                         // PCS reset
-    0x04 -> Seq(RegField.w(1, reg_txEnable)),             // TX enable
-    0x08 -> Seq(RegField.w(1, reg_txError)),              // TX error
-    0x0C -> Seq(RegField.w(1, reg_symbTimerDone)),       // Symbol timer done
-    0x10 -> Seq(RegField.w(8, reg_txd)),                   // TXD data bus
-    0x14 -> Seq(RegField.w(8, reg_decodedRxSymbVector)),// Decoded RXD bus (8b from decoder)
-    0x18 -> Seq(RegField.w(12, reg_encodedTxSymbVector)), // Encoded TX vector (4 x 3 bits = 12b)
+    0x00 -> Seq(RegField.w(1, reg_pcsReset)),                     // PCS reset
+    0x04 -> Seq(RegField.w(1, reg_txEnable)),                     // TX enable
+    0x08 -> Seq(RegField.w(1, reg_txError)),                      // TX error
+    0x0C -> Seq(RegField.w(1, reg_symbTimerDone)),                // Symbol timer done
+    0x10 -> Seq(RegField.w(8, reg_txd)),                          // TXD data bus
+    0x14 -> Seq(RegField.w(8, reg_decodedRxSymbVector)),          // Decoded RXD bus (8b from decoder)
+    0x18 -> Seq(RegField.w(12, reg_encodedTxSymbVector)),         // Encoded TX vector (4 x 3 bits = 12b)
     0x1C -> Seq(RegField.r(8, machine.io.rxd)),                   // RXD (GMII)
     0x20 -> Seq(RegField.r(1, machine.io.rx_dv)),                 // RX data valid
     0x24 -> Seq(RegField.r(1, machine.io.rx_er)),                 // RX data error
     0x28 -> Seq(RegField.r(1, machine.io.rxerror_status)),        // PCS RX error status
-    0x2C -> Seq(RegField.r(1, machine.io.col)),                    // Collision detect
+    0x2C -> Seq(RegField.r(1, machine.io.col)),                   // Collision detect
     0x30 -> Seq(RegField.r(12, machine.io.tx_symb_vector.bits.asUInt)), // TX symb vector output (4 x 3b = 12b)
-    0x34 -> Seq(RegField.w(12, reg_RxSymbVector)) // TX symb vector output (4 x 3b = 12b)
-
-
+    0x34 -> Seq(RegField.w(12, reg_RxSymbVector))                 // TX symb vector output (4 x 3b = 12b)
   )
-
-//   regmap(
-//   // ---- Inputs (write) ----
-//   0x00 -> Seq(RegField.w(1, pcsReset)),                         // PCS reset
-//   0x04 -> Seq(RegField.w(1, machine.io.tx_enable)),             // TX enable
-//   0x08 -> Seq(RegField.w(1, machine.io.tx_error)),              // TX error
-//   0x0C -> Seq(RegField.w(1, machine.io.symb_timer_done)),       // Symbol timer done
-//   0x10 -> Seq(RegField.w(8, machine.io.txd)),                   // TXD data bus
-//   0x14 -> Seq(RegField.w(8, machine.io.decoded_rx_symb_vector)),// Decoded RXD bus (8b from decoder)
-//   0x18 -> Seq(RegField.w(12, machine.io.encoded_tx_symb_vector.asUInt)), // Encoded TX vector (4 x 3 bits = 12b)
-
-//   // ---- Outputs (read) ----
-//   0x1C -> Seq(RegField.r(8, machine.io.rxd)),                   // RXD (GMII)
-//   0x20 -> Seq(RegField.r(1, machine.io.rx_dv)),                 // RX data valid
-//   0x24 -> Seq(RegField.r(1, machine.io.rx_er)),                 // RX data error
-//   0x28 -> Seq(RegField.r(1, machine.io.rxerror_status)),        // PCS RX error status
-//   0x2C -> Seq(RegField.r(1, machine.io.col))                    // Collision detect
-//   0x30 -> Seq(RegField.wr(12, machine.io.tx_symb_vector.bits.asUInt)) // TX symb vector output (4 x 3b = 12b)
-// )
-
-
 }
 
 class TxRxStateMachineTL(params: TxRxStateMachineParams, beatBytes: Int)(implicit p: Parameters)
